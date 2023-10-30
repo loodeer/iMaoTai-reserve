@@ -37,6 +37,7 @@ for section in configs.sections():
     if (configs.get(section, 'enddate') != 9) and (TODAY > configs.get(section, 'enddate')):
         continue
     mobile = privateCrypt.decrypt_aes_ecb(section, aes_key)
+    mobile = mobile.replace(mobile[3:7], '****')
     province = configs.get(section, 'province')
     city = configs.get(section, 'city')
     token = configs.get(section, 'token')
@@ -64,7 +65,7 @@ for section in configs.sections():
                 continue
             shop_info = source_data.get(str(max_shop_id))
             title = config.ITEM_MAP.get(item)
-            shopInfo = f'商品:{title};门店:{shop_info["name"]}'
+            shopInfo = f'商品:{title}; 门店:{shop_info["name"]}'
             logging.info(shopInfo)
             reservation_params = process.act_params(max_shop_id, item)
             # 核心预约步骤
