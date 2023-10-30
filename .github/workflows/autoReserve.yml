@@ -9,7 +9,7 @@ on:
     paths:
       - '.github/workflows/**'
   schedule:
-    - cron: '20 0,1 * * *'
+    - cron: '45 14 * * *'
 
 env:
   TZ: Asia/Shanghai
@@ -45,6 +45,7 @@ jobs:
 
       - name: start run
         env:
+          GAODE_KEY: ${{ secrets.GAODE_KEY }}
           PUSHPLUS_KEY: ${{ secrets.PUSHPLUS_KEY }}
           PRIVATE_AES_KEY: ${{ secrets.PRIVATE_AES_KEY }}
         run: |
