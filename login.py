@@ -59,10 +59,10 @@ if __name__ == '__main__':
 
         mobile = input("输入手机号:").strip()
         process.get_vcode(mobile)
-        code = input(f"输入 [{mobile}] 验证码:").strip()
+        code = input(f"输入 [{hide_mobile}] 验证码:").strip()
         token, userId = process.login(mobile, code)
 
-        endDate = input(f"输入 [{mobile}] 截止日期(必须是YYYYMMDD,20230819)，如果不设置截止，请输入9：").strip()
+        endDate = input(f"输入 [{hide_mobile}] 截止日期(必须是YYYYMMDD,20230819)，如果不设置截止，请输入9：").strip()
 
         # 为了增加辨识度，这里做了隐私处理，不参与任何业务逻辑
         hide_mobile = mobile.replace(mobile[3:7], '****')
@@ -85,7 +85,7 @@ if __name__ == '__main__':
 
         config.write(open(path, 'w+', encoding="utf-8"))  # 保存数据
 
-        condition = input(f"是否继续添加账号[y/n]:").strip()
+        condition = input(f"{hide_mobile}添加成功，是否继续添加账号[y/n]:").strip()
 
         if condition.lower() == 'n':
             break
