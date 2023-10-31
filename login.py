@@ -59,13 +59,13 @@ if __name__ == '__main__':
 
         mobile = input("输入手机号:").strip()
         process.get_vcode(mobile)
+        # 为了增加辨识度，这里做了隐私处理，不参与任何业务逻辑
+        hide_mobile = mobile.replace(mobile[3:7], '****')
         code = input(f"输入 [{hide_mobile}] 验证码:").strip()
         token, userId = process.login(mobile, code)
 
         endDate = input(f"输入 [{hide_mobile}] 截止日期(必须是YYYYMMDD,20230819)，如果不设置截止，请输入9：").strip()
 
-        # 为了增加辨识度，这里做了隐私处理，不参与任何业务逻辑
-        hide_mobile = mobile.replace(mobile[3:7], '****')
         # 因为加密了手机号和Userid，所以token就不做加密了
         encrypt_mobile = privateCrypt.encrypt_aes_ecb(mobile, aes_key)
         encrypt_userid = privateCrypt.encrypt_aes_ecb(str(userId), aes_key)
