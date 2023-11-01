@@ -30,8 +30,11 @@ if len(configs.sections()) == 0:
 
 aes_key = privateCrypt.get_aes_key()
 
-s_title = '茅台预约成功'
+s_title = 'i茅台今日自动申购完成'
 s_content = ""
+failure_detail = ""
+success_count = 0
+failure_count = 0
 
 for section in configs.sections():
     if (configs.get(section, 'enddate') != 9) and (TODAY > configs.get(section, 'enddate')):
@@ -65,20 +68,23 @@ for section in configs.sections():
                 continue
             shop_info = source_data.get(str(max_shop_id))
             title = config.ITEM_MAP.get(item)
+            logging.info("----------------")
             shopInfo = f'商品:{title}; 门店:{shop_info["name"]}'
             logging.info(shopInfo)
             reservation_params = process.act_params(max_shop_id, item)
             # 核心预约步骤
             r_success, r_content = process.reservation(reservation_params, mobile)
-            # 为了防止漏掉推送异常，所有只要有一个异常，标题就显示失败
             if not r_success:
-                s_title = '！！失败！！茅台预约'
-            s_content = s_content + r_content + shopInfo + "\n"
+                failure_count += 1
+                failure_detail += "\n" + r_content
+            else:
+                success_count += 1
             # 领取小茅运和耐力值
             process.getUserEnergyAward(mobile)
     except BaseException as e:
         print(e)
         logging.error(e)
 
+s_content = f"今日自动申购成功{success_count}人次，失败{failure_count}人次{failure_detail}"
 # 推送消息
 process.send_msg(s_title, s_content)
