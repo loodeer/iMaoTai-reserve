@@ -65,7 +65,7 @@ if __name__ == '__main__':
         token, userId = process.login(mobile, code)
 
         # endDate = input(f"输入 [{hide_mobile}] 截止日期(必须是YYYYMMDD,20230819)，如果不设置截止，请输入9：").strip()
-        endDate = 9
+        endDate = "9"
 
         # 因为加密了手机号和Userid，所以token就不做加密了
         encrypt_mobile = privateCrypt.encrypt_aes_ecb(mobile, aes_key)
