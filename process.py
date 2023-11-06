@@ -262,7 +262,7 @@ def reservation(params: dict, mobile: str):
     #     send_msg('！！失败！！茅台预约', f'[{mobile}],登录token失效，需要重新登录')
     #     raise RuntimeError
 
-    msg = f'预约:{mobile}; Code:{responses.status_code}; Body:{responses.text};'
+    msg = f'{mobile}; {responses.text}; {responses.status_code};'
     logging.info(msg)
 
     # 如果是成功，推送消息简化；失败消息则全量推送

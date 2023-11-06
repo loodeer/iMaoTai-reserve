@@ -70,6 +70,7 @@ if __name__ == '__main__':
         # 因为加密了手机号和Userid，所以token就不做加密了
         encrypt_mobile = privateCrypt.encrypt_aes_ecb(mobile, aes_key)
         encrypt_userid = privateCrypt.encrypt_aes_ecb(str(userId), aes_key)
+        encrypt_token = privateCrypt.encrypt_aes_ecb(str(token), aes_key)
 
         if encrypt_mobile not in sections:
             config.add_section(encrypt_mobile)  # 首先添加一个新的section
@@ -79,7 +80,7 @@ if __name__ == '__main__':
         config.set(encrypt_mobile, 'userid', encrypt_userid)
         config.set(encrypt_mobile, 'province', str(province))
         config.set(encrypt_mobile, 'city', str(city))
-        config.set(encrypt_mobile, 'token', str(token))
+        config.set(encrypt_mobile, 'token', str(encrypt_token))
 
         config.set(encrypt_mobile, 'lat', location.split(',')[1])
         config.set(encrypt_mobile, 'lng', location.split(',')[0])

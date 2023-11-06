@@ -43,7 +43,7 @@ for section in configs.sections():
     mobile = mobile.replace(mobile[3:7], '****')
     province = configs.get(section, 'province')
     city = configs.get(section, 'city')
-    token = configs.get(section, 'token')
+    token = privateCrypt.decrypt_aes_ecb(configs.get(section, 'token'), aes_key)
     userId = privateCrypt.decrypt_aes_ecb(configs.get(section, 'userid'), aes_key)
     lat = configs.get(section, 'lat')
     lng = configs.get(section, 'lng')
