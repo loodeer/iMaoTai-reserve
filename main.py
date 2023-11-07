@@ -79,8 +79,8 @@ for section in configs.sections():
                 failure_detail += "\n" + r_content
             else:
                 success_count += 1
-            # 领取小茅运和耐力值
-            process.getUserEnergyAward(mobile)
+        # 领取小茅运和耐力值
+        process.getUserEnergyAward(mobile)
     except BaseException as e:
         print(e)
         logging.error(e)
