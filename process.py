@@ -246,6 +246,7 @@ def act_params(shop_id: str, item_id: str):
 def send_msg(title, content):
     if config.PUSH_TOKEN is None:
         return
+    logging.info(f'结果推送：{content}')
     url = 'http://www.pushplus.plus/send'
     r = requests.get(url, params={'token': config.PUSH_TOKEN,
                                   'title': title,
