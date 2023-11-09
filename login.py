@@ -20,9 +20,6 @@ def get_credentials_path():
 
 
 path = get_credentials_path()
-# 这里config需要用encoding，以防跨平台乱码
-config.read(path, encoding="utf-8")
-sections = config.sections()
 
 
 def get_location():
@@ -71,6 +68,10 @@ if __name__ == '__main__':
         encrypt_mobile = privateCrypt.encrypt_aes_ecb(mobile, aes_key)
         encrypt_userid = privateCrypt.encrypt_aes_ecb(str(userId), aes_key)
         encrypt_token = privateCrypt.encrypt_aes_ecb(str(token), aes_key)
+
+        # 这里config需要用encoding，以防跨平台乱码
+        config.read(path, encoding="utf-8")
+        sections = config.sections()
 
         if encrypt_mobile not in sections:
             config.add_section(encrypt_mobile)  # 首先添加一个新的section
