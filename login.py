@@ -20,7 +20,9 @@ def get_credentials_path():
 
 
 path = get_credentials_path()
-
+# 这里config需要用encoding，以防跨平台乱码
+config.read(path, encoding="utf-8")
+sections = config.sections()
 
 def get_location():
     while 1:
