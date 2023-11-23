@@ -83,7 +83,8 @@ for section in configs.sections():
     except BaseException as e:
         logging.error(e)
         failure_count += 1
-        msg = f'{mobile}; {e};'
+        error_message = str(e)
+        msg = f'{mobile}; {error_message};'
         failure_detail += "\n" + msg
 
 s_content = f"今日自动申购成功{success_count}人次，失败{failure_count}人次"
