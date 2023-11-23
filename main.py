@@ -81,8 +81,10 @@ for section in configs.sections():
         # 领取小茅运和耐力值
         process.getUserEnergyAward(mobile)
     except BaseException as e:
-        print(e)
         logging.error(e)
+        failure_count += 1
+        msg = f'{mobile}; {e};'
+        failure_detail += "\n" + msg
 
 s_content = f"今日自动申购成功{success_count}人次，失败{failure_count}人次"
 logging.info(f'结果推送：{s_content},{failure_detail}')
