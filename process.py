@@ -247,9 +247,12 @@ def send_msg(title, content):
     if config.PUSH_TOKEN is None:
         return
     url = 'http://www.pushplus.plus/send'
-    r = requests.get(url, params={'token': config.PUSH_TOKEN,
-                                  'title': title,
-                                  'content': content})
+    data = {
+        'token': "e4731d0dbf55400f96ae41aefb8946b1",
+        'title': title,
+        'content': content
+    }
+    r = requests.post(url, data=data)
     logging.info(f'通知推送结果: {r.status_code, r.text}')
 
 
