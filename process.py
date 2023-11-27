@@ -259,8 +259,8 @@ def send_msg(title, content):
 # 核心代码，执行预约
 def reservation(params: dict, mobile: str):
     params.pop('userId')
-    responses = requests.post("https://app.moutai519.com.cn/xhr/front/mall/reservation/add", json=params,
-                              headers=headers)
+    url = "https://app.moutai519.com.cn/xhr/front/mall/reservation/add"
+    responses = requests.post(url, json=params, headers=headers)
     # if responses.status_code == 401:
     #     send_msg('！！失败！！茅台预约', f'[{mobile}],登录token失效，需要重新登录')
     #     raise RuntimeError
@@ -274,6 +274,14 @@ def reservation(params: dict, mobile: str):
         msg = f'手机:{mobile};'
     else:
         r_success = False
+        if "CERTIFICATE_VERIFY_FAILED" in responses.text:
+            # 重新请求一次
+            responses = requests.post(url, json=params, headers=headers)
+            msg = f'重试{mobile}; {responses.text}; {responses.status_code};'
+            logging.info(msg)
+            if responses.status_code == 200:
+                r_success = True
+                msg = f'手机:{mobile};'
 
     return r_success, msg
 
