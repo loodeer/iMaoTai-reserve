@@ -90,6 +90,4 @@ for section in configs.sections():
 s_content = f"今日自动申购成功{success_count}人次，失败{failure_count}人次"
 logging.info(f'结果推送：{s_content},{failure_detail}')
 # 推送消息
-process.send_msg("i茅台今日自动申购完成", s_content)
-if failure_detail != "":
-    process.send_msg("失败记录明细", failure_detail)
+process.send_msg("i茅台今日自动申购完成", s_content + "\n\n" + failure_detail)
